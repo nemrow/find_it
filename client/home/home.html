@@ -1,0 +1,12 @@
+<template name="home">
+  <h1>HOME</h1>
+  {{> loginButtons}}
+
+  {{#if currentUser}}
+    <button class="start">Start</button>
+    <button class="stop">Stop</button>
+    <span class="audio-url"></span>
+  {{/if}}
+</template>
+
+
