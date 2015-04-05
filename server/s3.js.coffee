@@ -10,8 +10,8 @@ Slingshot.createDirective "myFileUploads", Slingshot.S3Storage,
 
   allowedFileTypes: ["audio/wav"]
 
-  AWSAccessKeyId: "AKIAI2Z7JNLXOBBDYBAQ"
-  AWSSecretAccessKey: "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"
+  AWSAccessKeyId: process.env.AWS_ACCESS_KEY_ID
+  AWSSecretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
 
   key: (file) ->
-    Meteor.user()._id + new Date().toString()
+    Meteor.user()._id + ".mp3"

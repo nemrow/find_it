@@ -1,7 +1,7 @@
 onError = (e) ->
   console.log(e)
 
-recordIt = () ->
+recordIt = ($elem) ->
   session =
     audio: true
     video: false
@@ -9,6 +9,7 @@ recordIt = () ->
   navigator.getUserMedia session, (mediaStream) ->
     @recordRTC = RecordRTC(mediaStream)
     @recordRTC.startRecording()
+    $($elem).addClass("recoring").text("Stop Recording")
   , onError
 
 
@@ -33,16 +34,28 @@ dataURLToBlob = (dataURL) ->
 
   new Blob([uInt8Array], {type: contentType})
 
+handleNewRecording = ->
+  recordRTC.stopRecording (audioURL) ->
+    recordedBlob = recordRTC.getBlob()
+    recordRTC.getDataURL (dataURL) ->
+      uploader = new Slingshot.Upload("myFileUploads")
+      uploader.send dataURLToBlob(dataURL), (error, downloadUrl) ->
+        console.log(error)
+        searchId = Searches.insert
+          user_id: Meteor.user()._id
+          audio_url: downloadUrl
+          categories: ["liquor_store"]
+        beginSearch searchId
+
 
 Meteor.startup ->
-  $('body').on 'click', '.start', ->
-    recordIt()
-
-  $('body').on 'click', '.stop', ->
-    recordRTC.stopRecording (audioURL) ->
-      recordedBlob = recordRTC.getBlob()
-      recordRTC.getDataURL (dataURL) ->
-        uploader = new Slingshot.Upload("myFileUploads")
-        uploader.send dataURLToBlob(dataURL), (error, downloadUrl) ->
-          console.log(error)
-          $('.audio-url').text(downloadUrl)
+  recording = false
+  $('body').on 'click', '#record-btn', (e) ->
+    if recording
+      recording = false
+      $(@).hide().removeClass("recoring").text("Begin Recording")
+      handleNewRecording()
+    else
+      recording = true
+      recordIt(this)
+    e.preventDefault()

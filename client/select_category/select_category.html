@@ -1,0 +1,19 @@
+<template name="selectCategory">
+  <header class="bar bar-nav">
+    <a href="/" class="icon icon-left-nav pull-left"></a>
+    <h1 class="title">UX20</h1>
+  </header>
+
+  <div class="content">
+    <ul class="table-view">
+      {{#each placeTags}}
+        <li class="table-view-cell">
+          {{name}}
+          <div class="toggle {{#if active}} active {{/if}}" data-tag={{name}}>
+            <div class="toggle-handle"></div>
+          </div>
+        </li>
+      {{/each}}
+    </ul>
+  </div>
+</template>

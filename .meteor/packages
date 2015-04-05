@@ -14,3 +14,6 @@ accounts-facebook
 edgee:slingshot
 mrt:moment
 mrt:twilio-meteor
+dburles:collection-helpers
+dburles:google-maps
+axw:ratchet

@@ -6,6 +6,7 @@ accounts-ui-unstyled@1.1.6
 application-configuration@1.0.4
 autopublish@1.0.2
 autoupdate@1.1.5
+axw:ratchet@0.1.2
 base64@1.0.2
 binary-heap@1.0.2
 blaze@2.0.4
@@ -14,6 +15,8 @@ boilerplate-generator@1.0.2
 callback-hook@1.0.2
 check@1.0.4
 coffeescript@1.0.5
+dburles:collection-helpers@1.0.3
+dburles:google-maps@1.0.8
 ddp@1.0.14
 deps@1.0.6
 edgee:slingshot@0.6.0

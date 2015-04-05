@@ -1,12 +1,67 @@
 <template name="home">
-  <h1>HOME</h1>
-  {{> loginButtons}}
+  <header class="bar bar-nav">
+    <h1 class="title">UX20</h1>
+  </header>
 
-  {{#if currentUser}}
-    <button class="start">Start</button>
-    <button class="stop">Stop</button>
-    <span class="audio-url"></span>
-  {{/if}}
+  <div class="content">
+    {{> loginButtons}}
+
+    {{#if currentUser}}
+
+      <div class="bar bar-standard bar-header-secondary">
+        <a href="/selectCategory" class="btn btn-block">Select Category</a>
+      </div>
+
+      <div class="card">
+        <ul class="table-view">
+          {{#each currentTags}}
+            <li class="table-view-cell">{{name}}</li>
+          {{/each}}
+        </ul>
+      </div>
+
+      <div class="card">
+        <form>
+          <input type="text" label="lat" name="lat" placeholder="Latitude">
+          <input type="text" label="lon" name="lon" placeholder="Longitute">
+        </form>
+      </div>
+
+      <button id="record-btn" class="btn btn-positive btn-block">Begin Recording</button>
+
+      <span class="places-data"></span>
+
+      <ul class="table-view">
+        {{#each currentSearch.places}}
+          <li class="table-view-cell media">
+            <div class="navigate-right">
+              <img class="media-object pull-left" src="{{photo}}">
+              <div class="media-body">
+                {{name}}
+                <p>{{vicinity}}</p>
+
+                {{#if status}}
+                  {{#if transcription}}
+                    <img class="answered-img" src="/images/answered_phone.png">
+                    <p class="transciption">{{transcription}}</p>
+                  {{else}}
+                    <img src="/images/hangup_phone.png">
+                  {{/if}}
+                {{else}}
+                  <p>currently calling..</p>
+                {{/if}}
+              </div>
+            </div>
+          </li>
+        {{/each}}
+      </ul>
+
+    {{/if}}
+
+    <div id="map-node"></div>
+
+  </div>
+
 </template>
 
 
