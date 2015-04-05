@@ -36,16 +36,13 @@ dataURLToBlob = (dataURL) ->
 
 handleNewRecording = ->
   recordRTC.stopRecording (audioURL) ->
-    recordedBlob = recordRTC.getBlob()
-    recordRTC.getDataURL (dataURL) ->
-      uploader = new Slingshot.Upload("myFileUploads")
-      uploader.send dataURLToBlob(dataURL), (error, downloadUrl) ->
-        console.log(error)
-        searchId = Searches.insert
-          user_id: Meteor.user()._id
-          audio_url: downloadUrl
-          categories: ["liquor_store"]
-        beginSearch searchId
+    uploader = new Slingshot.Upload("myFileUploads")
+    uploader.send recordRTC.getBlob(), (error, downloadUrl) ->
+      searchId = Searches.insert
+        user_id: Meteor.user()._id
+        audio_url: downloadUrl
+        categories: ["liquor_store"]
+      beginSearch searchId
 
 
 Meteor.startup ->

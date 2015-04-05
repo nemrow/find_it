@@ -4,32 +4,38 @@
   </header>
 
   <div class="content">
-    {{> loginButtons}}
 
     {{#if currentUser}}
 
-      <div class="bar bar-standard bar-header-secondary">
-        <a href="/selectCategory" class="btn btn-block">Select Category</a>
+      <div class="content-padded">
+        <a href="/selectCategory" class="btn btn-primary btn-block">Select Category</a>
       </div>
 
-      <div class="card">
-        <ul class="table-view">
-          {{#each currentTags}}
-            <li class="table-view-cell">{{name}}</li>
-          {{/each}}
-        </ul>
-      </div>
+      {{#if currentTags}}
+        <div class="card">
+          <div class="content-padded">
+            <span>Current Tags: <b>{{currentTagsCommaSeparated}}</b></span>
+          </div>
+        </div>
+      {{/if}}
 
-      <div class="card">
+
+      <div class="content-padded">
         <form>
           <input type="text" label="lat" name="lat" placeholder="Latitude">
           <input type="text" label="lon" name="lon" placeholder="Longitute">
         </form>
       </div>
 
-      <button id="record-btn" class="btn btn-positive btn-block">Begin Recording</button>
+      <div class="content-padded">
+        <button id="record-btn" class="btn btn-positive btn-block">Begin Recording</button>
+      </div>
 
-      <span class="places-data"></span>
+      <div class="card">
+        <div class="content-padded">
+          <span class="places-data"></span>
+        </div>
+      </div>
 
       <ul class="table-view">
         {{#each currentSearch.places}}
@@ -55,6 +61,12 @@
           </li>
         {{/each}}
       </ul>
+
+    {{else}}
+
+      <div class="card">
+      {{> loginButtons}}
+    </div>
 
     {{/if}}
 
